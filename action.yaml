@@ -1,0 +1,10 @@
+name: 'Cancel this merge queue'
+description: 'Uses the GitHub Actions API to cancel the current merge queue entry'
+inputs:
+  token:
+    description: 'Token'
+    required: false
+    default: ${{ github.token }}
+runs:
+  using: 'node20'
+  main: 'cancel.js'
