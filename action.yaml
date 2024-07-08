@@ -1,4 +1,4 @@
-name: 'Cancel this branch'
+name: 'Cancel this branch [UMH]'
 description: 'Uses the GitHub Actions API to cancel the current branch (pending only)'
 inputs:
   token:
