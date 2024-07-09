@@ -3,7 +3,11 @@ const github = require('@actions/github');
 
 async function run() {
     try {
-        const token = core.getInput('github-token');
+        const token = core.getInput('GITHUB_TOKEN');
+        if (!token) {
+            core.error('GITHUB_TOKEN is required');
+        }
+
         const octokit = github.getOctokit(token);
         const { context } = github;
         const branch = context.ref.replace('refs/heads/', '');
@@ -15,10 +19,16 @@ async function run() {
             status: 'queued'
         });
 
-        console.log(branch_runs);
+        core.debug(branch_runs);
 
         // Cancel them
         for (const run of branch_runs) {
+            if (run.head_branch !== branch) {
+                core.info(`Skipping run ${run.id} as it is not for the current branch`);
+                continue;
+            }
+            core.info(`Cancelling run ${run.id}`);
+
             await octokit.rest.actions.cancelWorkflowRun({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
