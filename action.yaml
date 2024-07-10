@@ -3,8 +3,8 @@ description: 'Uses the GitHub Actions API to cancel the current branch (pending 
 inputs:
   token:
     description: 'Token'
-    required: false
-    default: ${{ github.token }}
+    required: true
+    default: ${{ secrets.GITHUB_TOKEN }}
 runs:
   using: 'node20'
   main: 'cancel.js'
