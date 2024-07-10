@@ -3,9 +3,9 @@ const github = require('@actions/github');
 
 async function run() {
     try {
-        const token = core.getInput('GITHUB_TOKEN');
+        const token = core.getInput('token');
         if (!token) {
-            core.error('GITHUB_TOKEN is required');
+            core.error('token is required');
         }
 
         const octokit = github.getOctokit(token);
